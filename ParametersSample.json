@@ -2,5 +2,6 @@
     "authority": "https://login.microsoftonline.com/common",
     "client_id": "{YOUR_CLIENT_ID}",
     "scope": ["Group.ReadWrite.All"],
-    "endpoint": "https://graph.microsoft.com/v1.0/groups"
+    "endpoint": "https://graph.microsoft.com/v1.0/groups",
+    "group_id": "{YOUR_GROUP_ID}"
 }

@@ -57,12 +57,28 @@ if not result:
         # or you may even turn off the blocking behavior,
         # and then keep calling acquire_token_by_device_flow(flow) in your own customized loop.
 
+collection_to_delete = []
+
 if "access_token" in result:
     # Calling graph using the access token
-    graph_data = requests.get(  # Use token to call downstream service
-        config["endpoint"],
+    conversation_list = requests.get(
+        config["endpoint"] + "/" + config["group_id"] + "/conversations",
         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
-    print("Graph API call result: %s" % json.dumps(graph_data, indent=2))
+    for conversation in conversation_list['value']:
+        collection_to_delete.append(conversation['id'])
+    # print("Graph API call result: %s" % json.dumps(conversation_list, indent=2))
+    print(collection_to_delete)
+    # while "@odata.nextLink" in conversation_list:
+    #     conversation_list = requests.get(
+    #         conversation_list["@odata.nextLink"],
+    #         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
+    #     print("Graph API call result: %s" % json.dumps(conversation_list, indent=2))
+    for conversation in collection_to_delete:
+        test = requests.delete(
+            config["endpoint"] + "/" + config["group_id"] + "/conversations/" + conversation,
+            headers={'Authorization': 'Bearer ' + result['access_token']},).json()
+        print(test)
+
 else:
     print(result.get("error"))
     print(result.get("error_description"))
