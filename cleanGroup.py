@@ -1,14 +1,13 @@
 import sys  # For simplicity, we'll read config file from 1st CLI param sys.argv[1]
 import json
 import logging
-
 import requests
 import msal
 
 
 # Optional logging
-# logging.basicConfig(level=logging.DEBUG)  # Enable DEBUG log for entire script
-# logging.getLogger("msal").setLevel(logging.INFO)  # Optionally disable MSAL DEBUG logs
+logging.basicConfig(level=logging.DEBUG)  # Enable DEBUG log for entire script
+logging.getLogger("msal").setLevel(logging.INFO)  # Optionally disable MSAL DEBUG logs
 
 config = json.load(open(sys.argv[1]))
 
@@ -66,18 +65,20 @@ if "access_token" in result:
         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
     for conversation in conversation_list['value']:
         collection_to_delete.append(conversation['id'])
-    # print("Graph API call result: %s" % json.dumps(conversation_list, indent=2))
-    print(collection_to_delete)
-    # while "@odata.nextLink" in conversation_list:
-    #     conversation_list = requests.get(
-    #         conversation_list["@odata.nextLink"],
-    #         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
-    #     print("Graph API call result: %s" % json.dumps(conversation_list, indent=2))
-    for conversation in collection_to_delete:
-        test = requests.delete(
-            config["endpoint"] + "/" + config["group_id"] + "/conversations/" + conversation,
+    while "@odata.nextLink" in conversation_list:
+        conversation_list = requests.get(
+            conversation_list["@odata.nextLink"],
             headers={'Authorization': 'Bearer ' + result['access_token']},).json()
-        print(test)
+        for conversation in conversation_list['value']:
+            collection_to_delete.append(conversation['id'])
+    print(collection_to_delete)
+
+    # Delete Conversation
+    # for conversation in collection_to_delete:
+    #     test = requests.delete(
+    #         config["endpoint"] + "/" + config["group_id"] + "/conversations/" + conversation,
+    #         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
+    #     print(test)
 
 else:
     print(result.get("error"))
