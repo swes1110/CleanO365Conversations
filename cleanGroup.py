@@ -74,11 +74,11 @@ if "access_token" in result:
     print(collection_to_delete)
 
     # Delete Conversation
-    # for conversation in collection_to_delete:
-    #     test = requests.delete(
-    #         config["endpoint"] + "/" + config["group_id"] + "/conversations/" + conversation,
-    #         headers={'Authorization': 'Bearer ' + result['access_token']},).json()
-    #     print(test)
+    for conversation in collection_to_delete:
+        test = requests.delete(
+            config["endpoint"] + "/" + config["group_id"] + "/conversations/" + conversation,
+            headers={'Authorization': 'Bearer ' + result['access_token']},).json()
+        print(test)
 
 else:
     print(result.get("error"))
