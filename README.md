@@ -20,7 +20,7 @@ pip install msal
 ### Azure AD Configuration
 
 To utilize this application you must configure an enterprise application registration with the following settings:
-1. Application must be configured with http://localhost in the redirect URIs. Also, redirect URI's should be set as "Mobile and desktop applications" and not the default of "web" for public client authentication ![AzurePortalScreenshot](https://i.imgur.com/dXFb08o.png)
+1. Application must be configured with redirect URI's set to "Mobile and desktop applications" and not the default of "web" for public client authentication ![AzurePortalScreenshot](https://i.imgur.com/dXFb08o.png)
 1. Application must be set to "treat application as a public client![AzurePortalScreenshot](https://i.imgur.com/ToN6RIT.png)
 
 ### Configuration File
