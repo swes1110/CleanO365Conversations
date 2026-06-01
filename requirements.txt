@@ -1,0 +1,3 @@
+# Secure pinned dependencies
+requests==2.31.0  # CVE-2023-32681 (SSRF mitigation)
+msal==1.28.0      # Latest secure version with proper token handling
