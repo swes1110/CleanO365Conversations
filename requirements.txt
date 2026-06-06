@@ -1,0 +1,5 @@
+# CleanO365Conversations dependencies
+# Updated for security fixes
+
+requests==2.31.0
+msal>=1.28.0
