@@ -1,5 +1,6 @@
 # CleanO365Conversations dependencies
 # Pinned for reproducible builds and security fixes
 
-requests==2.31.0  # CVE-2023-32681 (SSRF mitigation)
-msal==1.28.0      # Latest secure version with proper token handling
+requests==2.33.0  # Fixes CVE-2024-35195, CVE-2024-47081, CVE-2026-25645
+msal==1.37.0      # Updates auth dependency chain for current security fixes
+cryptography==48.0.1  # Fixes PYSEC-2026-35, CVE-2026-26007, GHSA-537c-gmf6-5ccf
